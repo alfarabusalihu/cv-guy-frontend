@@ -11,7 +11,7 @@ export const Chatbox = () => {
         if (!question.trim()) return
 
         try {
-            const sendRequest = await axios.post(`${process.env.BASE_URL}/api/chat`, { question })
+            const sendRequest = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}api/chat`, { question })
             setMessages([...messages, { question, answer: sendRequest.data.answer }]);
             setQuestion('')
         }

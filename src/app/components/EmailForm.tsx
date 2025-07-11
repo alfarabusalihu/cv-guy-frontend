@@ -13,7 +13,7 @@ export const EmailForm = () => {
       const { receiver, subject, body } = values;
       
       try{
-        const sendEmail = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/api/email`,
+        const sendEmail = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}api/email`,
           {
             to:receiver,
             subject:subject,

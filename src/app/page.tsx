@@ -1,21 +1,24 @@
 "use client"
 
 import Chatbox from "./components/Chatbox";
-import EmailForm from "./components/EmailForm";
+import { useState } from "react";
+import { CVcontainer } from "./components/CVcontainer";
 
 export default function Home() {
+  const [cvUploaded,setCvUploaded]=useState(false)
 
   return (
-    <main className="min-h-screen p-6 bg-amber-200 text-amber-950">
-      <div className="flex w-full justify-between">
-        <h1 className="text-4xl font-bold mb-6">
-          Welcome to CV guy
-        </h1>
-        <EmailForm/>
+    <main className="min-h-screen min-w-full p-6 bg-amber-100 text-amber-950">
+      <h1 className="text-3xl mb-10 font-bold text-center">Hi, Welcome to CV Guy</h1>
+      { 
+        <div>
+        {!cvUploaded? (
+          <CVcontainer onuploaded={()=>setCvUploaded(true)}/>):(
+            <Chatbox/>
+          )
+        }
       </div>
-      <Chatbox/>
-
+      }
     </main>
-
   );
 }

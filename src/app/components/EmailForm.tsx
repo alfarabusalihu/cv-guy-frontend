@@ -30,7 +30,7 @@ const EmailForm = () => {
   return (
     <div>
         <MediumSquareFilled  onClick={()=>setModalState(true)}
-          className="px-4 py-2 text-3xl text-white rounded hover:bg-white"/>
+          className="px-6 py-3 text-3xl text-white rounded hover:bg-white"/>
       <Modal
         title="Send Mail"
         open={modalState}

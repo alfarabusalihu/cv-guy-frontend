@@ -13,15 +13,18 @@ export function CVcontainer({onuploaded}:{onuploaded:() =>void}) {
         setUploading(true)
 
         try{
-            if(!formData){
-                
-            }
-            await axios.post(`${process.env.NEXT_PUBLIC_API_URL}api/uploadcv`,formData,{
-                headers:{
-                    "Content-type":"multipart/form-data"
-                },
-            }),
-            onuploaded()
+      setUploading(true);
+
+      const res = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}api/cv`, formData, {
+        headers: { "Content-Type": "multipart/form-data" },
+      });
+
+      if (res.data.cvId) {
+        localStorage.setItem("cvId", res.data.cvId);
+        onuploaded();
+      } else {
+        alert("No CV ID returned from server");
+      }
         }
         catch(err){
             console.error(err);
@@ -33,8 +36,8 @@ export function CVcontainer({onuploaded}:{onuploaded:() =>void}) {
 
     const handleDelete=async()=>{
        try{
-          await axios.delete(`${process.env.NEXT_PUBLIC_API_URL}/api/deletecv`);
-          window.location.reload();
+        setFile(null)
+        window.location.reload();
        }
        catch(err){
         console.error(err)

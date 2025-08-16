@@ -6,19 +6,29 @@ import EmailForm from './EmailForm';
 const Chatbox = () => {
     const [question, setQuestion] = useState('');
     const [messages, setMessages] = useState<Message[]>([])
-
+    const cvId = localStorage.getItem("cvId");
 
     const handleQuestions = async () => {
         if (!question.trim()) return
 
         try {
-            const sendRequest = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}api/chat`, { question })
+            const sendRequest = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}api/chat`, { question,cvId })
             setMessages([...messages, { question, answer: sendRequest.data.answer }]);
             setQuestion('')
         }
         catch (err) {
             console.log(err)
         }
+    }
+        const handleDelete=async()=>{
+      const cvId=localStorage.getItem("cvId")
+       try{
+          await axios.delete(`${process.env.NEXT_PUBLIC_API_URL}api/cv/${cvId}`);
+          window.location.reload();
+       }
+       catch(err){
+        console.error(err)
+       }
     }
 return (
   <div className="flex flex-col items-center justify-start min-h-screen py-1">
@@ -36,6 +46,12 @@ return (
           className="px-6 py-3 bg-blue-600 text-white font-medium rounded-lg shadow hover:bg-blue-700 transition"
         >
           Send
+        </button>
+        <button
+          onClick={handleDelete}
+          className="px-6 py-3 bg-red-700 text-white font-medium rounded-lg shadow hover:bg-blue-700 transition"
+        >
+          Remove CV
         </button>
         <EmailForm />
       </div>
